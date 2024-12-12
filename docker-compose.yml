@@ -10,3 +10,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=2001
       - POSTGRES_DB=vacancy_management
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
