@@ -30,7 +30,7 @@ public class CandidateEntity {
     @Email(message = "O campo [email] deve conter um e-mail válido.")
     private String email;
 
-    @Length(min = 8, max = 14, message = "A senha deve conter entre 8 a 14 caracteres.")
+    @Length(min = 8, max = 100, message = "A senha deve conter entre 8 a 100 caracteres.")
     private String password;
     private String description;
     private String curriculum;
