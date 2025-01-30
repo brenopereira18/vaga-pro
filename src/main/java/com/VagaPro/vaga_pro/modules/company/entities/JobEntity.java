@@ -1,5 +1,6 @@
 package com.VagaPro.vaga_pro.modules.company.entities;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -21,9 +22,14 @@ public class JobEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @Schema(example = "Vaga para pessoa desenvolvedora júnior", requiredMode = Schema.RequiredMode.REQUIRED)
     private String description;
+
+    @Schema(example = "GymPass, Plano de Saúde", requiredMode = Schema.RequiredMode.REQUIRED)
     private String benefits;
 
+    @Schema(example = "JUNIOR", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "Esse campo é obrigatório.")
     private String level;
 
