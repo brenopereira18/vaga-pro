@@ -1,5 +1,6 @@
-package com.VagaPro.vaga_pro.modules.candidate;
+package com.VagaPro.vaga_pro.modules.candidate.repositories;
 
+import com.VagaPro.vaga_pro.modules.candidate.entities.CandidateEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,7 +1,7 @@
 package com.VagaPro.vaga_pro.modules.candidate.useCases;
 
 
-import com.VagaPro.vaga_pro.modules.candidate.CandidateRepository;
+import com.VagaPro.vaga_pro.modules.candidate.repositories.CandidateRepository;
 import com.VagaPro.vaga_pro.modules.candidate.dto.AuthCandidateDTO;
 import com.VagaPro.vaga_pro.modules.candidate.dto.AuthCandidateResponseDTO;
 import com.auth0.jwt.JWT;

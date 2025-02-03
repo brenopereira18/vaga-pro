@@ -1,8 +1,8 @@
 package com.VagaPro.vaga_pro.modules.candidate.useCases;
 
 import com.VagaPro.vaga_pro.exceptions.UserFoundException;
-import com.VagaPro.vaga_pro.modules.candidate.CandidateEntity;
-import com.VagaPro.vaga_pro.modules.candidate.CandidateRepository;
+import com.VagaPro.vaga_pro.modules.candidate.entities.CandidateEntity;
+import com.VagaPro.vaga_pro.modules.candidate.repositories.CandidateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

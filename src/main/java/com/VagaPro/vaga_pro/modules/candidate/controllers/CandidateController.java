@@ -1,7 +1,8 @@
 package com.VagaPro.vaga_pro.modules.candidate.controllers;
 
-import com.VagaPro.vaga_pro.modules.candidate.CandidateEntity;
+import com.VagaPro.vaga_pro.modules.candidate.entities.CandidateEntity;
 import com.VagaPro.vaga_pro.modules.candidate.dto.ProfileCandidateDTO;
+import com.VagaPro.vaga_pro.modules.candidate.useCases.ApplyJobCandidateUseCase;
 import com.VagaPro.vaga_pro.modules.candidate.useCases.CreateCandidateUseCase;
 import com.VagaPro.vaga_pro.modules.candidate.useCases.ListAllJobsByFilterUseCase;
 import com.VagaPro.vaga_pro.modules.candidate.useCases.ProfileCandidateUseCase;
@@ -38,8 +39,11 @@ public class CandidateController {
     @Autowired
     public ListAllJobsByFilterUseCase listAllJobsByFilterUseCase;
 
+    @Autowired
+    public ApplyJobCandidateUseCase applyJobCandidateUseCase;
+
     @PostMapping("/")
-    @Operation(summary = "Cadastro de candidato", description = "Essa função é responsavel por cadastrar candidato")
+    @Operation(summary = "Cadastro de candidato", description = "Essa função é responsavel por cadastrar candidato.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = {
                     @Content(schema = @Schema(implementation = CandidateEntity.class))
@@ -57,7 +61,7 @@ public class CandidateController {
 
     @GetMapping("/")
     @PreAuthorize("hasRole('CANDIDATE')")
-    @Operation(summary = "Perfil do candidato", description = "Essa função é responsavel por buscar informações do candidato")
+    @Operation(summary = "Perfil do candidato", description = "Essa função é responsavel por buscar informações do candidato.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = {
                     @Content(schema = @Schema(implementation = ProfileCandidateDTO.class))
@@ -77,7 +81,7 @@ public class CandidateController {
 
     @GetMapping("/job")
     @PreAuthorize("hasRole('CANDIDATE')")
-    @Operation(summary = "Listagem das vagas disponíveis para o candidato", description = "Essa função é responsavel por listar vagas, por filtro")
+    @Operation(summary = "Listagem das vagas disponíveis para o candidato", description = "Essa função é responsavel por listar vagas, por filtro.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = {
                     @Content(array = @ArraySchema(schema = @Schema(implementation = JobEntity.class)))
@@ -86,5 +90,19 @@ public class CandidateController {
     @SecurityRequirement(name = "jwt_auth")
     public List<JobEntity> findByJobFilter(@RequestParam String filter) {
         return this.listAllJobsByFilterUseCase.execute(filter);
+    }
+
+    @PostMapping("/job/apply")
+    @PreAuthorize("hasRole('CANDIDATE')")
+    @Operation(summary = "Inscrição do candidato para uma vaga", description = "Essa função é responsavel por realizar a inscrição do candidato em uma vaga.")
+    @SecurityRequirement(name = "jwt_auth")
+    public ResponseEntity<Object> applyJob(HttpServletRequest request, @RequestBody UUID idJob) {
+        var idCandidate = request.getAttribute("candidate_id");
+        try {
+            var result = this.applyJobCandidateUseCase.execute(UUID.fromString(idCandidate.toString()), idJob);
+            return ResponseEntity.ok().body(result);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
