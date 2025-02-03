@@ -1,4 +1,4 @@
-package com.VagaPro.vaga_pro.modules.candidate;
+package com.VagaPro.vaga_pro.modules.candidate.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,6 +1,6 @@
 package com.VagaPro.vaga_pro.modules.candidate.useCases;
 
-import com.VagaPro.vaga_pro.modules.candidate.CandidateRepository;
+import com.VagaPro.vaga_pro.modules.candidate.repositories.CandidateRepository;
 import com.VagaPro.vaga_pro.modules.candidate.dto.ProfileCandidateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
