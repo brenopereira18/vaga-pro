@@ -1,9 +1,9 @@
 package com.VagaPro.vaga_pro.modules.candidate.useCases;
 
+import com.VagaPro.vaga_pro.exceptions.UserNotFoundException;
 import com.VagaPro.vaga_pro.modules.candidate.repositories.CandidateRepository;
 import com.VagaPro.vaga_pro.modules.candidate.dto.ProfileCandidateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -17,7 +17,7 @@ public class ProfileCandidateUseCase {
     public ProfileCandidateDTO execute(UUID idCandidate) {
        var candidate = this.candidateRepository.findById(idCandidate)
                .orElseThrow(() -> {
-                   throw new UsernameNotFoundException("User not found");
+                   throw new UserNotFoundException();
                });
 
        var candidateDTO = ProfileCandidateDTO.builder()
