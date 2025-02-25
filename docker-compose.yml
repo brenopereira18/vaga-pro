@@ -1,5 +1,9 @@
 version: '3.8'
 
+networks:
+  gv-network:
+    driver: bridge
+
 services:
   postgres:
     container_name: vacancy_management_postgres
@@ -12,6 +16,27 @@ services:
       - POSTGRES_DB=vacancy_management
     volumes:
       - postgres_data:/var/lib/postgresql/data
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - gv-network
+    ports:
+      - 9090:9090
+    extra_hosts:
+      - host.docker.internal:host-gateway
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    networks:
+      - gv-network
 
 volumes:
   postgres_data:
+  prometheus_data:
+  grafana_data:
